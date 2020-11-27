@@ -1,0 +1,29 @@
+version: "3.6"
+services:
+  maternityservice_postgres:
+    image: postgres
+    restart: always
+    environment:
+      - DATABASE_HOST=localhost
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=maternity
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker_maternityservice_postgres_init.sql:/docker-entrypoint-initdb.d/docker_maternityservice_postgres_init.sql
+    command: -p 5432
+
+  courseservice_postgres:
+    image: postgres
+    restart: always
+    environment:
+      - DATABASE_HOST=localhost
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=course
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./docker_courseservice_postgres_init.sql:/docker-entrypoint-initdb.d/docker_courseservice_postgres_init.sql
+    command: -p 5433
