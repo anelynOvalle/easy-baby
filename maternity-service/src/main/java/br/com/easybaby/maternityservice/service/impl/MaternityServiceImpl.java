@@ -1,6 +1,7 @@
 package br.com.easybaby.maternityservice.service.impl;
 
 import br.com.easybaby.maternityservice.dto.MaternityDTO;
+import br.com.easybaby.maternityservice.dto.MaternityResponseDTO;
 import br.com.easybaby.maternityservice.entity.Maternity;
 import br.com.easybaby.maternityservice.exceptions.MaternityNotFound;
 import br.com.easybaby.maternityservice.repository.MaternityRepository;
@@ -20,7 +21,7 @@ public class MaternityServiceImpl implements MaternityService {
     private final ModelMapper mapper;
 
     @Override
-    public List<MaternityDTO> listMaternity() {
+    public List<MaternityResponseDTO> listMaternity() {
         return mapListMaternity(maternityRepository.findAll());
     }
 
@@ -44,8 +45,8 @@ public class MaternityServiceImpl implements MaternityService {
     }
 
     @Override
-    public MaternityDTO getMaternityById(Long id) {
-        return mapper.map(existMaternity(id), MaternityDTO.class);
+    public MaternityResponseDTO getMaternityById(Long id) {
+        return mapper.map(existMaternity(id), MaternityResponseDTO.class);
     }
 
     @Override
@@ -54,9 +55,9 @@ public class MaternityServiceImpl implements MaternityService {
         maternityRepository.deleteById(id);
     }
 
-    private List<MaternityDTO> mapListMaternity(List<Maternity> maternities) {
+    private List<MaternityResponseDTO> mapListMaternity(List<Maternity> maternities) {
         return maternities.stream()
-                .map(maternity -> this.mapper.map(maternity, MaternityDTO.class))
+                .map(maternity -> this.mapper.map(maternity, MaternityResponseDTO.class))
                 .collect(Collectors.toList());
     }
 

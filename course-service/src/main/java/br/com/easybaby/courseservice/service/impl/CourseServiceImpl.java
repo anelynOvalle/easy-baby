@@ -1,6 +1,7 @@
 package br.com.easybaby.courseservice.service.impl;
 
 import br.com.easybaby.courseservice.dto.CourseDTO;
+import br.com.easybaby.courseservice.dto.CourseResponseDTO;
 import br.com.easybaby.courseservice.entity.Course;
 import br.com.easybaby.courseservice.exceptions.CourseNotFound;
 import br.com.easybaby.courseservice.repository.CourseRepository;
@@ -21,14 +22,15 @@ public class CourseServiceImpl implements CourseService {
     private final ModelMapper mapper;
 
     @Override
-    public List<CourseDTO> listCourse() {
+    public List<CourseResponseDTO> listCourse() {
         return mapListCourse(courseRepository.findAll());
     }
 
     @Override
     public CourseDTO createCourse(CourseDTO courseDTO) {
-        courseDTO.setDateNow(LocalDate.now());
-        courseRepository.save(mapper.map(courseDTO, Course.class));
+        Course course = mapper.map(courseDTO, Course.class);
+        course.setDateNow(LocalDate.now());
+        courseRepository.save(course);
         return courseDTO;
     }
 
@@ -49,8 +51,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO getCourseById(Long id) {
-        return mapper.map(existCourse(id), CourseDTO.class);
+    public CourseResponseDTO getCourseById(Long id) {
+        return mapper.map(existCourse(id), CourseResponseDTO.class);
     }
 
     @Override
@@ -59,9 +61,9 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.deleteById(id);
     }
 
-    private List<CourseDTO> mapListCourse(List<Course> courses) {
+    private List<CourseResponseDTO> mapListCourse(List<Course> courses) {
         return courses.stream()
-                .map(course -> this.mapper.map(course, CourseDTO.class))
+                .map(course -> this.mapper.map(course, CourseResponseDTO.class))
                 .collect(Collectors.toList());
     }
 
