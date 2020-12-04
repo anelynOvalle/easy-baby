@@ -1,6 +1,7 @@
 package br.com.easybaby.maternityservice.controller;
 
 import br.com.easybaby.maternityservice.dto.MaternityDTO;
+import br.com.easybaby.maternityservice.dto.MaternityResponseDTO;
 import br.com.easybaby.maternityservice.service.MaternityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,13 @@ public class MaternityController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<MaternityDTO> listMaternity(){
+    public List<MaternityResponseDTO> listMaternity(){
         return maternityService.listMaternity();
     }
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MaternityDTO getMaternityById(@PathVariable("id") Long id){
+    public MaternityResponseDTO getMaternityById(@PathVariable("id") Long id){
         return maternityService.getMaternityById(id);
     }
 
