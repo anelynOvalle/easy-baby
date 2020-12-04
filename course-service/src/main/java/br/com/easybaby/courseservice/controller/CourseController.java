@@ -1,6 +1,7 @@
 package br.com.easybaby.courseservice.controller;
 
 import br.com.easybaby.courseservice.dto.CourseDTO;
+import br.com.easybaby.courseservice.dto.CourseResponseDTO;
 import br.com.easybaby.courseservice.service.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,13 @@ public class CourseController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CourseDTO> listCourse(){
+    public List<CourseResponseDTO> listCourse(){
         return courseService.listCourse();
     }
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CourseDTO getCourseById(@PathVariable("id") Long id){
+    public CourseResponseDTO getCourseById(@PathVariable("id") Long id){
         return courseService.getCourseById(id);
     }
 
